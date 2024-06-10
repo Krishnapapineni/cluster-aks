@@ -6,8 +6,8 @@
     #update nsg ports
 	#Update NSG for ports
     #update and upgrade to get new updates installed on image
-	3- sudo apt-get update
-	4- sudo apt-get upgrade
+	sudo apt-get update
+	sudo apt-get upgrade
 	# Add Docker and docker's official GPG key:
 	sudo apt-get update
 	sudo apt-get install ca-certificates curl
@@ -45,27 +45,32 @@
 	sudo nano /etc/containerd/config.toml
 	#SystemdCgroup = true manually cntrl+w to search and cntl+x and Y+Entr to save
     # SystemdCgroup = true
-	sudo systemctl restart containerd
+     chmod +x /etc/containerd/config.toml '{"systemdCgroup": "true"}'
+    #sudo nano /etc/containerd/config.toml -p '{"s": {"type": "LoadBalancer"}}'
+    #chmod +x /etc/containerd/config.toml -p '{"systemdCgroup": "true"}'
+    #chmod +x '{"/etc/containerd/config.toml": "SystemdCgroup = true"}'
+    #sudo nano chmod +x /etc/containerd/config.toml '{"systemdCgroup": "true"}'
+	#sudo systemctl restart containerd
 	#kubectl label node node01 node-role.kubernetes.io/worker=worker
 	
 	#From <https://devopscube.com/setup-kubernetes-cluster-kubeadm/>
     #apt-key
     curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    #
+    #swap off
     sudo swapoff -a
-    #
+    # sudo access for etc directory
     sudo nano /etc/fstab
-    #
+    #enables net filter
     sudo modprobe br_netfilter
-    #
+    #forwads ip 
     sudo sysctl -w net.ipv4.ip_forward=1
     # kube init gives join command
     sudo kubeadm init --pod-network-cidr=10.244.0.0/16
-    #
+    #creates directory
     mkdir -p $HOME/.kube
-    #
+    #copy kubernetes files to this directory
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-    #
+    #gives the sudo access to this directory
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
-    #
+    #installs flinnel nodes
     kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.20.2/Documentation/kube-flannel.yml
