@@ -45,9 +45,9 @@
 	sudo nano /etc/containerd/config.toml
 	#SystemdCgroup = true manually cntrl+w to search and cntl+x and Y+Entr to save
     # SystemdCgroup = true
-     chmod +x /etc/containerd/config.toml '{"systemdCgroup": "true"}'
+    #  chmod +x /etc/containerd/config.toml '{"systemdCgroup": "true"}'
     #sudo nano /etc/containerd/config.toml -p '{"s": {"type": "LoadBalancer"}}'
-    #chmod +x /etc/containerd/config.toml -p '{"systemdCgroup": "true"}'
+    #chown +x /etc/containerd/config.toml '{"systemdCgroup": "true"}'
     #chmod +x '{"/etc/containerd/config.toml": "SystemdCgroup = true"}'
     #sudo nano chmod +x /etc/containerd/config.toml '{"systemdCgroup": "true"}'
 	#sudo systemctl restart containerd
