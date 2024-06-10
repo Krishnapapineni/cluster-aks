@@ -24,7 +24,7 @@
     #install docker packages and pluins
 	sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
     #change the acess to docker from user to root user to apply change restart required
-	Sudo usermod -aG docker <username>
+	Sudo usermod -aG docker adminuser
     #update the image with new changes
 	sudo apt-get update
 	sudo apt-get install -y apt-transport-https ca-certificates curl gpg
