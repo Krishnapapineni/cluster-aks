@@ -43,8 +43,29 @@
 	sudo containerd config default | sudo tee /etc/containerd/config.toml
     #Edit the containerd configuration file to set SystemdCgroup to true. Use the following command to open the file
 	sudo nano /etc/containerd/config.toml
-	#SystemdCgroup = true
+	#SystemdCgroup = true manually cntrl+w to search and cntl+x and Y+Entr to save
+    # SystemdCgroup = true
 	sudo systemctl restart containerd
 	#kubectl label node node01 node-role.kubernetes.io/worker=worker
 	
 	#From <https://devopscube.com/setup-kubernetes-cluster-kubeadm/>
+    #apt-key
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    #
+    sudo swapoff -a
+    #
+    sudo nano /etc/fstab
+    #
+    sudo modprobe br_netfilter
+    #
+    sudo sysctl -w net.ipv4.ip_forward=1
+    # kube init gives join command
+    sudo kubeadm init --pod-network-cidr=10.244.0.0/16
+    #
+    mkdir -p $HOME/.kube
+    #
+    sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+    #
+    sudo chown $(id -u):$(id -g) $HOME/.kube/config
+    #
+    kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/v0.20.2/Documentation/kube-flannel.yml
